@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import util.NumberToPflotran as ntp
+=======
+import util.NumberToPflotran as NumberToPflotran
+>>>>>>> 6d23870 (Added the required Pump changes:)
 
 class Position:
     def __init__(self, x, y, z):
