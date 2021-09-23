@@ -25,7 +25,8 @@ class BruteForceSolver(Optimization.Solver):
 
 
     def Evaluate(self):
-        if not getattr(self.list_of_constraints, 'check')(self.topology).all():
+
+        if not map(lambda x: x.check(self.topology), self.list_of_constraints).all():
             return False
 
         return self.objective_function.eval(self.topology)
