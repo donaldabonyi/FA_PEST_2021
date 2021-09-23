@@ -20,7 +20,7 @@ def interpolation_main():
     # call the interpolation Rbf
     rbf_function = interpolate.Rbf(x_coord_pp, y_coord_pp, permeability_pp)
     interpolated_permeability = rbf_function(x_grid, y_grid)
-    print(type(interpolated_permeability))
+    print(interpolated_permeability)
 
     # save grid as np array
     cells_grid = np.array([x_grid, y_grid])
@@ -44,8 +44,12 @@ def read_pilot_points():
 
 def write_permeability_file(permeability_array, cells_grid):
     # writes the permeability input file for PEST
-    iarray = np.arange(1, cells_grid.shape[0] + 1, 1)
+    iarray = np.arange(1, permeability_array.shape[0] + 1, 1)
 
+    if iarray.shape[0] == permeability_array.shape[0] and iarray.shape[0] == cells_grid.shape[1]:
+        print("yes")
+    else:
+        print("no")
     print(cells_grid.shape[0])
     print(iarray)
 
