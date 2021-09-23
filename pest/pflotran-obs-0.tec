@@ -1,0 +1,3 @@
+ "Time [d]","2-Temperature [C] obs_injection_1 (150. 130. 10.)","3-Temperature [C] obs_injection_2 (150. 65. 10.)","4-Temperature [C] obs_injection_3 (350. 130. 10.)","5-Temperature [C] obs_injection_4 (350. 65. 10.)","6-Temperature [C] obs_extraction_1 (50. 130. 10.)","7-Temperature [C] obs_extraction_2 (50. 65. 10.)","8-Temperature [C] obs_extraction_3 (250. 130. 10.)","9-Temperature [C] obs_extraction_4 (250. 65. 10.)"
+  0.000000E+00  1.000000E+01  1.000000E+01  1.000000E+01  1.000000E+01  1.000000E+01  1.000000E+01  1.000000E+01  1.000000E+01
+  3.600000E+02  1.499847E+01  1.499845E+01  1.499841E+01  1.499841E+01  1.006839E+01  1.006986E+01  1.006644E+01  1.006828E+01

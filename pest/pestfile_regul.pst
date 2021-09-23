@@ -1,0 +1,65 @@
+pcf
+* control data
+             restart      regularization
+         4        16         1         4        17
+         1         1              single               point
+   1.000000E+01   2.000000E+00   3.000000E-01   3.000000E-02        10
+   5.000000E+00   5.000000E+00   1.000000E-03
+   1.000000E-01
+        10   5.000000E-03         4         4   5.000000E-03         4
+         1         1         1
+* singular value decomposition
+         1
+  10000000    1.000000E-06
+1
+* parameter groups
+perm                   relative              1.0000000000E-02      0.0 switch                2.0000000000E+00      parabolic             1.0000000000E-05      5.0000000000E-01      smaller              
+* parameter data
+perm_0                log                   factor                1.0000000000E-09      1.0000000000E-13      1.0000000000E-05      perm                  1.0000000000E+00      0.0000000000E+00      1              
+perm_1                log                   factor                1.0000000000E-09      1.0000000000E-13      1.0000000000E-05      perm                  1.0000000000E+00      0.0000000000E+00      1              
+perm_2                log                   factor                1.0000000000E-09      1.0000000000E-13      1.0000000000E-05      perm                  1.0000000000E+00      0.0000000000E+00      1              
+perm_3                log                   factor                1.0000000000E-09      1.0000000000E-13      1.0000000000E-05      perm                  1.0000000000E+00      0.0000000000E+00      1              
+* observation groups
+model_site1
+model_site2
+model_site3
+model_site4
+model_site5
+model_site6
+model_site7
+model_site8
+model_site9
+model_site10
+model_site11
+model_site12
+model_site13
+model_site14
+model_site15
+model_site16                 
+regulperm            
+* observation data
+model_site1_1         observation Data     1.0000000000E+00      model_site1          
+model_site2_2         observation Data     1.0000000000E+00      model_site2
+model_site1_3         observation Data     1.0000000000E+00      model_site3          
+model_site2_4         observation Data     1.0000000000E+00      model_site4
+model_site1_5         observation Data     1.0000000000E+00      model_site5          
+model_site2_6         observation Data     1.0000000000E+00      model_site6
+model_site1_7         observation Data     1.0000000000E+00      model_site7          
+model_site2_8         observation Data     1.0000000000E+00      model_site8
+model_site1_9         observation Data     1.0000000000E+00      model_site9          
+model_site2_10        observation Data     1.0000000000E+00      model_site10
+model_site1_11        observation Data     1.0000000000E+00      model_site11          
+model_site2_12        observation Data     1.0000000000E+00      model_site12
+model_site1_13        observation Data     1.0000000000E+00      model_site13          
+model_site2_14        observation Data     1.0000000000E+00      model_site14
+model_site1_15        observation Data     1.0000000000E+00      model_site15          
+model_site2_16        observation Data     1.0000000000E+00      model_site16
+* model command line
+../bin/model_command_FA.bat
+* model input/output
+../PEST/pilot_points/permpp.dat.tpl ../PEST/pilot_points/permpp.dat
+../PEST/pest_instructionfile.ins tsproc_output.ssf        
+* regularization
+1e-10 1.05e-10 0.1 nomemsave 
+1.0 1.0e-10 1.0e10 linreg continue 
+1.3 1.0e-2 1 1.5 1.5 0.5 
