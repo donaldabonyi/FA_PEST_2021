@@ -39,21 +39,21 @@ model_site16
 regulperm            
 * observation data
 model_site1_1         observation Data     1.0000000000E+00      model_site1          
-model_site2_2         observation Data     1.0000000000E+00      model_site2
+model_site1_2         observation Data     1.0000000000E+00      model_site2
 model_site1_3         observation Data     1.0000000000E+00      model_site3          
-model_site2_4         observation Data     1.0000000000E+00      model_site4
+model_site1_4         observation Data     1.0000000000E+00      model_site4
 model_site1_5         observation Data     1.0000000000E+00      model_site5          
-model_site2_6         observation Data     1.0000000000E+00      model_site6
+model_site1_6         observation Data     1.0000000000E+00      model_site6
 model_site1_7         observation Data     1.0000000000E+00      model_site7          
-model_site2_8         observation Data     1.0000000000E+00      model_site8
+model_site1_8         observation Data     1.0000000000E+00      model_site8
 model_site1_9         observation Data     1.0000000000E+00      model_site9          
-model_site2_10        observation Data     1.0000000000E+00      model_site10
+model_site1_10        observation Data     1.0000000000E+00      model_site10
 model_site1_11        observation Data     1.0000000000E+00      model_site11          
-model_site2_12        observation Data     1.0000000000E+00      model_site12
+model_site1_12        observation Data     1.0000000000E+00      model_site12
 model_site1_13        observation Data     1.0000000000E+00      model_site13          
-model_site2_14        observation Data     1.0000000000E+00      model_site14
+model_site1_14        observation Data     1.0000000000E+00      model_site14
 model_site1_15        observation Data     1.0000000000E+00      model_site15          
-model_site2_16        observation Data     1.0000000000E+00      model_site16
+model_site1_16        observation Data     1.0000000000E+00      model_site16
 * model command line
 ../bin/model_command_FA.bat
 * model input/output
