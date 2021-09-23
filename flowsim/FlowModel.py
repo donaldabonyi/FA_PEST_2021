@@ -4,6 +4,7 @@ from Pump import Pump
 from ObservationPoint import ObservationPoint
 from InitialCondition import InitialCondition
 from BoundaryCondition import BoundaryCondition
+
 class Model:
     #expects (Grid, TimeDomain, List of Pumps, List of ObservationPoints).
     #if you don't want to have any pumps, just give an empty list, e.g. 'list()'
@@ -17,15 +18,14 @@ class Model:
         self.initial_conditions = initial_conditions
         self.boundary_conditions = boundary_conditions
 
-    
 
+        self.observations.extend([c for s in map(lambda x: x.observations, pumps) for c in s])
 
     def get_observation_quantities(self):
         quantities = {}
         for observation in self.observations:
-            quantities.add(observation.quantity)
-        quantities = map(lambda x: x.to_pflotran(), quantities)
-        return quantities
+            quantities[observation.quantity] = observation.quantity
+        return quantities.keys()
 
     def get_simulation_block(self):
         return """
@@ -62,13 +62,13 @@ class Model:
                 FORMAT VTK
                 PRINT_COLUMN_IDS
                 VARIABLES
-                    {self.get_observation_quantities()}
+                    {"".join([q.to_pflotran() for q in self.get_observation_quantities()])}
                 /
-            /
+            /   
             OBSERVATION_FILE
                 {self.time_domain.observation_contrib()}
                 VARIABLES
-                    {self.get_observation_quantities()}
+                    {"".join([q.to_pflotran() for q in self.get_observation_quantities()])}
                 /
             /
         END
@@ -76,16 +76,29 @@ class Model:
 
 
     def to_pflotran(self):
+        perm_string = "DATASET permeability_values\nFILENAME permeability_values.h5\nHDF5_DATASET_NAME permeability_values\nEND" if self.materials[0].permeability_from_file else ""
         return f"""
         {self.get_simulation_block()}
         SUBSURFACE
         REFERENCE_PRESSURE 101325.
         {self.get_numerical_methods_block()}
         {self.grid.to_pflotran()}
-        {[material.to_pflotran() for material in self.materials]}
+        FLUID_PROPERTY
+            DIFFUSION_COEFFICIENT 1.d-9
+        /
+        {"".join([material.to_pflotran() for material in self.materials])}
+        {self.get_output_file()}
+        {perm_string}
         {self.time_domain.to_pflotran()}
-        {self.boundary_conditions.to_pflotran()}
-        {self.initial_conditions.to_pflotran()}
+        {"".join([ic.to_pflotran() for ic in self.initial_conditions])}
+        {"".join([bc.to_pflotran() for bc in self.boundary_conditions])}
+        {"".join([obs.to_pflotran() for obs in self.observations])}
+        STRATA
+            REGION All
+            MATERIAL gravel
+        END
+        {"".join([pump.to_pflotran() for pump in self.pumps])}
+        
 
         HDF5_READ_GROUP_SIZE 1
         END_SUBSURFACE

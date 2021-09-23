@@ -1,8 +1,9 @@
 #note: characteristic curves are not changeable at the moment
 
 import util.NumberToPflotran as ntp
+import os
 
-class Material:
+class Material():
     def __init__(self, id=1, name="gravel"):
         self.id = id
         self.name = name
@@ -48,3 +49,17 @@ class Material:
             /
         END
         """
+
+
+class FluidProperties():
+
+    def __init__(self, diffusion=1e-9):
+        self.diffusion = diffusion
+
+    def to_pflotran(self):
+        return f"""
+FLUID_PROPERTY
+  DIFFUSION_COEFFICIENT {ntp.ntop(self.diffusion)}
+/
+"""
+
