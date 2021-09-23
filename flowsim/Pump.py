@@ -27,7 +27,7 @@ class Pump:
         for time_step, data in zip(self.timesteps,lst):
             for i in range(num_tabs):
                 string+="\t"
-            string = string + f"{time_step} {data}\n"
+            string = string + f"{ntp.ntop(time_step)} {ntp.ntop(data)}\n"
         return string
 
     def create_source_sink(self):

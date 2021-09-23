@@ -1,4 +1,4 @@
-import NumberToPflotran
+import util.NumberToPflotran as ntp
 class BoundaryCondition:
     #give _grad as Position objects
     def __init__(self, name="inflow", region=Region("west", Position(0,0,0), Position(0, 200, 30)), pressure_type = "HYDROSTATIC", temperature_type = "DIRICHLET", datum = Position(0,0,20), pressure = 101325, temperature = 10, pressure_grad = (-0.005,0,0), temperature_grad = (0,0,0)):
@@ -13,8 +13,8 @@ class BoundaryCondition:
                 {"PRESSURE "+pressure_grad.to_pflotran() if pressure_grad != (0,0,0) else ""}
                 {"TEMPERATURE "+temperature_grad.to_pflotran() if temperature_grad != (0,0,0) else ""}
             /
-            {"PRESSURE "+NumberToPflotran.numberToPflotran(pressure) if pressure_type != "" else ""}
-            {"TEMPERATURE "+NumberToPflotran.numberToPflotran(temperature) if temperature_type != "" else ""}
+            {"PRESSURE "+ntp.ntop(pressure) if pressure_type != "" else ""}
+            {"TEMPERATURE "+ntp.ntop(temperature) if temperature_type != "" else ""}
         END
 
         {region.to_pflotran()}

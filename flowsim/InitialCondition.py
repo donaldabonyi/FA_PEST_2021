@@ -1,4 +1,4 @@
-import NumberToPflotran
+import util.NumberToPflotran as ntp
 from Region import Region
 from Position import Position
 
@@ -20,8 +20,8 @@ class InitialCondition:
                 {"PRESSURE "+pressure_grad.to_pflotran() if pressure_grad != (0,0,0) else ""}
                 {"TEMPERATURE "+temperature_grad.to_pflotran() if temperature_grad != (0,0,0) else ""}
             /
-            {"PRESSURE "+NumberToPflotran.numberToPflotran(pressure) if pressure_type != "" else ""}
-            {"TEMPERATURE "+NumberToPflotran.numberToPflotran(temperature) if temperature_type != "" else ""}
+            {"PRESSURE "+ntp.ntop(pressure) if pressure_type != "" else ""}
+            {"TEMPERATURE "+ntp.ntop(temperature) if temperature_type != "" else ""}
         END
 
         {region.to_pflotran()}

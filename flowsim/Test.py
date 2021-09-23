@@ -18,4 +18,4 @@ model = Model(grid, time_domain=time_domain, pumps=[pump], materials=[material],
 
 solver = FluidSolver(model=model, num_procs=1)
 
-solver.run()
+solver.write_input_file()

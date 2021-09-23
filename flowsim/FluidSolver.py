@@ -10,6 +10,7 @@ class FluidSolver:
         self.num_procs = num_procs
 
 
+    #requires variable PFLOTRAN_DIR to be set to the PFLOTRAN installation directory (without '/' at the end)
     def run(self):
         self.write_input_file()
         os.system(f"mpirun -n {self.num_procs} $PFLOTRAN_DIR/src/pflotran/pflotran")

@@ -1,6 +1,6 @@
 
 #converts number to pflotran floating point. returns a string
-def numberToPflotran(number):
+def ntop(number):
     float_number = float(number)
     string_number = "{:e}".format(float_number).replace('+','')
     string_number2 = ""

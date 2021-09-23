@@ -1,6 +1,6 @@
 #note: characteristic curves are not changeable at the moment
 
-import NumberToPflotran
+import util.NumberToPflotran as ntp
 
 class Material:
     def __init__(self, id=1, name="gravel"):
@@ -23,15 +23,15 @@ class Material:
         return f"""
         MATERIAL_PROPERTY {self.name}
             ID {self.id}
-            POROSITY {self.porosity}
-            TORTUOSITY {self.tortuosity}
-            ROCK_DENSITY {self.rock_density}
-            SPECIFIC_HEAT {self.specific_heat}
-            THERMAL_CONDUCTIVITY_DRY {self.thermal_conductivity_dry}
-            THERMAL_CONDUCTIVITY_WET {self.thermal_conductivity_wet}
-            LONGITUDINAL_DISPERSIVITY {self.longitudinal_dispersivity}
+            POROSITY {ntp.ntop(self.porosity)}
+            TORTUOSITY {ntp.ntop(self.tortuosity)}
+            ROCK_DENSITY {ntp.ntop(self.rock_density)}
+            SPECIFIC_HEAT {ntp.ntop(self.specific_heat)}
+            THERMAL_CONDUCTIVITY_DRY {ntp.ntop(self.thermal_conductivity_dry)}
+            THERMAL_CONDUCTIVITY_WET {ntp.ntop(self.thermal_conductivity_wet)}
+            LONGITUDINAL_DISPERSIVITY {ntp.ntop(self.longitudinal_dispersivity)}
             PERMEABILITY
-                {"PERM_ISO "+NumberToPflotran.numberToPflotran(self.permeability) if not self.permeability_from_file}
+                {"PERM_ISO "+ntp.ntop(self.permeability) if not self.permeability_from_file else ""}
             /
             CHARACTERISTIC_CURVES {self.name}_cc
         /

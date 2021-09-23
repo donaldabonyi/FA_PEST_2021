@@ -1,3 +1,5 @@
+import util.NumberToPflotran as ntp
+
 class TimeDomain:
     def __init__(self, days, max_step):
         self.days = days
@@ -13,9 +15,9 @@ class TimeDomain:
     #assumption periodic time == max time step
     def snapshot_contrib(self):
         return f"""
-                PERIODIC TIME {self.max_step}. d BETWEEN 0. d AND {self.days}. d
+                PERIODIC TIME {ntp.ntop(self.max_step)} d BETWEEN 0. d AND {ntp.ntop(self.days)} d
         """
     def observation_contrib(self):
         return f"""
-                PERIODIC TIME {self.max_step}. d BETWEEN 0. d AND {self.days}. d
+                PERIODIC TIME {ntp.ntop(self.max_step)} d BETWEEN 0. d AND {ntp.ntop(self.days)}. d
         """
