@@ -1,6 +1,6 @@
 import numpy as np
 
-class Constraints:
+class Constraint:
 
     def __init__(self) -> None:
         

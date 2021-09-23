@@ -50,7 +50,7 @@ if __name__ == "__main__":
     initial_ground_temperature = 15
     temperature_difference = 5
     initial_output_temperature = initial_ground_temperature- temperature_difference
-    mass_flow = 1.0
+    mass_flow = 2.0 # Energy demand = 41.8, mass_flow =Energy_demand/(temperature_difference*cp_water)=41.8/()
 
     pump_1 = GeneralClasses.Pump([pump_1_x, pump_1_y, 0.0], mass_flow, initial_ground_temperature )
     pump_2 = GeneralClasses.Pump([pump_2_x, pump_2_y, 0.0], mass_flow, initial_ground_temperature )
