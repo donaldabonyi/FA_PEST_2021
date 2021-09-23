@@ -1,3 +1,5 @@
+import NumberToPflotran
+
 class Position:
     def __init__(self, x, y, z):
         self.x = x
@@ -5,4 +7,4 @@ class Position:
         self.z = z
 
     def to_pflotran(self):
-        return f"{str(self.x)}.d0 {str(self.y)}.d0 {str(self.z)}.d0"
+        return NumberToPflotran.numberToPflotran(self.x) + " " + NumberToPflotran.numberToPflotran(self.y) + " " + NumberToPflotran.numberToPflotran(self.z)

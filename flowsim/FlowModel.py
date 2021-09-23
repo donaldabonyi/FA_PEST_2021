@@ -2,12 +2,13 @@ from Grid import Grid
 from TimeDomain import TimeDomain
 from Pump import Pump
 from ObservationPoint import ObservationPoint
-
+from InitialCondition import InitialCondition
+from BoundaryCondition import BoundaryCondition
 class Model:
     #expects (Grid, TimeDomain, List of Pumps, List of ObservationPoints).
     #if you don't want to have any pumps, just give an empty list, e.g. 'list()'
     #to give a permeability field, put an .h5-file named permeability_data.h5 into the folder of all the python files
-    def __init__(self, grid, time_domain, pumps, materials, observations, initial_conditions, boundary_conditions):
+    def __init__(self, grid, time_domain, pumps, materials, observations, initial_conditions=[InitialCondition()], boundary_conditions=BoundaryCondition.default_BCs()):
         self.grid = grid
         self.time_domain = time_domain
         self.pumps = pumps
@@ -83,8 +84,8 @@ class Model:
         {self.grid.to_pflotran()}
         {[material.to_pflotran() for material in self.materials]}
         {self.time_domain.to_pflotran()}
-        #{self.boundary_conditions.to_pflotran()}
-        #{self.initial_conditions.to_pflotran()}
+        {self.boundary_conditions.to_pflotran()}
+        {self.initial_conditions.to_pflotran()}
 
         HDF5_READ_GROUP_SIZE 1
         END_SUBSURFACE

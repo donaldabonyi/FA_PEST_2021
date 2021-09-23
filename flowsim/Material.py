@@ -1,17 +1,23 @@
 #note: characteristic curves are not changeable at the moment
 
+import NumberToPflotran
+
 class Material:
-    def __init__(self, id, name):
+    def __init__(self, id=1, name="gravel"):
         self.id = id
         self.name = name
-        self.permeability = 1e-9 #default value
+        self.permeability = 1e-10 #default value
         self.porosity = 0.25 #default value
         self.tortuosity = 0.5 #default value
         self.rock_density = 2.8e3 #default value
         self.specific_heat = 1e3 #default value
         self.thermal_conductivity_dry = 0.5 #default value
         self.thermal_conductivity_wet = 0.5 #default value
-        self.longitudinal_dispersivity = 5 #default value
+        self.longitudinal_dispersivity = 3.1536 #default value
+        if(os.path.isfile("permeability_data.h5")): #TODO adapt file name
+            self.permeability_from_file = True
+        else:
+            self.permeability_from_file = False
 
     def to_pflotran(self):
         return f"""
@@ -25,7 +31,7 @@ class Material:
             THERMAL_CONDUCTIVITY_WET {self.thermal_conductivity_wet}
             LONGITUDINAL_DISPERSIVITY {self.longitudinal_dispersivity}
             PERMEABILITY
-                PERM_ISO {self.permeability}
+                {"PERM_ISO "+NumberToPflotran.numberToPflotran(self.permeability) if not self.permeability_from_file}
             /
             CHARACTERISTIC_CURVES {self.name}_cc
         /
