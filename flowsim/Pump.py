@@ -1,4 +1,5 @@
 from enum import Enum
+from main.flowsim.ObservationPoint import ObservationPoint, Quantity
 
 from Position import Position
 
@@ -16,6 +17,9 @@ class Pump:
         self.mass_flows = mass_flows
         self.temperatures = temperatures
         self.state = state
+
+        # also create two observations for the pumps
+        self.observations = [ObservationPoint(id=f"injection_pump_{id}",position=injection_position, quantity=Quantity.Temperature), ObservationPoint(id=f"extraction_pump_{id}",position=extraction_position, quantity=Quantity.Temperature)]
 
         self.flow_condition_name = f"fc_pump_{self.id}"
         self.region_name = f"region_pump_{self.id}"
@@ -73,6 +77,7 @@ END
 
     def to_pflotran(self):
         return f"""
+        {map(lambda x: x.to_pflotran(), self.observations)}
         {self.create_region()}
         {self.create_flow_condition()}
         {self.create_source_sink()}

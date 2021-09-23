@@ -13,18 +13,19 @@ class Quantity(Enum):
 
 class ObservationPoint:
     #orders PFLOTRAN to put data observed at the specified coordinate into the OBSERVATION_FILE
-    def __init__(self, id, position):
-        global static_observation_counter
+    def __init__(self, id, position, quantity):
         self.id = id
         self.pos = position
 
+        self.region_name = f"observation_region_{self.id}"
+
     def to_pflotran(self):
         return f"""
-            REGION observation_{self.id}
+            REGION {self.region_name}
                 COORDINATE {self.pos.to_pflotran()}
             /
             OBSERVATION
-                REGION observation{self.id}
+                REGION {self.region_name}
                 AT_COORDINATE {self.pos.to_pflotran()}
             /
         """
