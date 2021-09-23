@@ -6,8 +6,9 @@ Output: results from optimal pump distribution
 
 Authors: Ferienakademie 2021, Optimization Team"""
 
-from optimization import  *
+from optimization import *
 from general_classes import *
+
 
 # TODO: def Initialize()
 
@@ -33,14 +34,26 @@ if __name__ == "__main__":
     convergence_criteria = lambda difference: difference < 1e-10
 
     # Pump initialization (hard coded)
-    pump_1_x = 0.0
-    pump_1_y = 0.0
-    pump_2_x = 0.0
-    pump_2_y = 1.0
-    pump_3_x = 1.0
-    pump_3_y = 0.0
-    pump_4_x = 1.0
-    pump_4_y = 1.0
+    pump_1_ex_x = 50
+    pump_1_ex_y = 130
+    pump_1_in_x = 150
+    pump_1_in_y = 130
+
+    pump_2_ex_x = 50
+    pump_2_ex_y = 65
+    pump_2_in_x = 150
+    pump_2_in_y = 65
+
+    pump_3_ex_x = 250
+    pump_3_ex_y = 130
+    pump_3_in_x = 350
+    pump_3_in_y = 130
+
+    pump_4_ex_x = 250
+    pump_4_ex_y = 65
+    pump_4_in_x = 350
+    pump_4_in_y = 65
+
     pump_cost = 10
 
     initial_ground_temperature = 15
@@ -62,17 +75,16 @@ if __name__ == "__main__":
 
     # add pumps to topology
 
-    topology = Optimization.TopologyClass( list_of_pumps, domain) 
+    topology = Topology( list_of_pumps, domain) 
     #we are assuming observation points at pumps only
 
     # define constraints (as class)
     
-    constraint_1 = Optimization.TemperatureConstraint(11.5 , 129) # Placeholder
-    constraint_2 = Optimization.PumpsConstraint(4,1) # Placeholder
-    constraints = [constraint_1, constraint_2]
+    constraint_1 = TemperatureConstraint(11.5 , 129) # Placeholder
+    constraints = [constraint_1]
 
     # define OF (as class)
-    objective_function = Optimization.CostObjectiveFunction(1000000000000000) # Placeholder
+    objective_function = CostObjectiveFunction(1000000000000000) # Placeholder
 
     # initialize solver ( brute force -> OF and constraints, topology)
     solver = BruteForceSolver()
