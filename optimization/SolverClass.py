@@ -17,23 +17,31 @@ class Solver:
 
     def RunLoop(self):
 
-        while self.CheckConvergence(self.metric_value) == False:
-            results = self.Evaluate()
-            self.metric_value = self.CalculateMetric(results)
+        results_previous = None
+        iteration = 0
+
+        if iteration < self.max_iterations:
+            while self.CheckConvergence(self.metric_value) == False:
+                results = self.Evaluate()
+                if results_previous is None:
+                    results_previous = np.zeros_like(results)
+                self.metric_value = self.CalculateMetric(results, results_previous)
+                results_previous = results
+            iteration = iteration+1
             
 
     def Evaluate(self):
-        
-        raise(Exception("Solver evaluation not available. It must be implemented in the child"))
+        print("WARNING: Evaluate should be defined in the child solver.")
 
 
     def CheckConvergence(self):
 
-        return True
+        return self.convergence_criteria(self.metric_value)
 
-    def CalculateMetric(self, results):
+    def CalculateMetric(self, results, results_previous):
 
         if self.metric == 'msqe':
-            
+            value = np.sqrt(sum((results-results_previous)^2) )
+            return value
 
 

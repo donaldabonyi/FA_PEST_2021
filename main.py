@@ -6,8 +6,8 @@ Output: results from optimal pump distribution
 
 Authors: Ferienakademie 2021, Optimization Team"""
 
-import optimization as *
-import general_classes as *
+from optimization import *
+from general_classes import *
 
 
 # TODO: def Initialize()
@@ -17,10 +17,7 @@ def RunOptimizationLoop(solver, convergence_criteria):
 
     solver_vtk_flag = False # Run without output
 
-    MSQE_difference = 10    # Initialize difference
-
-    while convergence_criteria(MSQE_difference) == False:
-        results = solver.Run()
+    solver.RunLoop()
      
 
 def Finalize(topology, fluid_solver):
@@ -52,10 +49,10 @@ if __name__ == "__main__":
     initial_output_temperature = initial_ground_temperature- temperature_difference
     mass_flow = 2.0 # Energy demand = 41.8, mass_flow =Energy_demand/(temperature_difference*cp_water)=41.8/()
 
-    pump_1 = GeneralClasses.Pump([pump_1_x, pump_1_y, 0.0], mass_flow, initial_ground_temperature )
-    pump_2 = GeneralClasses.Pump([pump_2_x, pump_2_y, 0.0], mass_flow, initial_ground_temperature )
-    pump_3 = GeneralClasses.Pump([pump_3_x, pump_3_y, 0.0], mass_flow, initial_ground_temperature )
-    pump_4 = GeneralClasses.Pump([pump_4_x, pump_4_y, 0.0], mass_flow, initial_ground_temperature )
+    pump_1 = Pump([pump_1_x, pump_1_y, 0.0], mass_flow, initial_ground_temperature )
+    pump_2 = Pump([pump_2_x, pump_2_y, 0.0], mass_flow, initial_ground_temperature )
+    pump_3 = Pump([pump_3_x, pump_3_y, 0.0], mass_flow, initial_ground_temperature )
+    pump_4 = Pump([pump_4_x, pump_4_y, 0.0], mass_flow, initial_ground_temperature )
 
     list_of_pumps = [pump_1, pump_2, pump_3, pump_4]
 
