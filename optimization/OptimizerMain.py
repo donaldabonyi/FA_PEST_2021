@@ -66,16 +66,17 @@ if __name__ == "__main__":
 
     # add pumps to topology
 
-    topology = GeneralClasses.TopologyClass( list_of_pumps, domain, list_observation_points)
+    topology = Optimization.TopologyClass( list_of_pumps, domain) 
+    #we are assuming observation points at pumps only
 
     # define constraints (as class)
     
-    constraint_1 = Optimization.Constraint() # Placeholder
-    constraint_2 = Optimization.Constraint() # Placeholder
+    constraint_1 = Optimization.TemperatureConstraint(11.5 , 129) # Placeholder
+    constraint_2 = Optimization.PumpsConstraint(4,1) # Placeholder
     constraints = [constraint_1, constraint_2]
 
     # define OF (as class)
-    objective_function = Optimization.ObjectiveFunction() # Placeholder
+    objective_function = Optimization.CostObjectiveFunction(1000000000000000) # Placeholder
 
     # initialize solver ( brute force -> OF and constraints, topology)
     solver = Optimization.BruteForceSolver()
