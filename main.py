@@ -6,8 +6,8 @@ Output: results from optimal pump distribution
 
 Authors: Ferienakademie 2021, Optimization Team"""
 
-import optimization as Optimization
-import general_classes as GeneralClasses
+import optimization as *
+import general_classes as *
 
 
 # TODO: def Initialize()
@@ -66,20 +66,20 @@ if __name__ == "__main__":
 
     # add pumps to topology
 
-    topology = Optimization.TopologyClass( list_of_pumps, domain) 
+    topology = Topology( list_of_pumps, domain) 
     #we are assuming observation points at pumps only
 
     # define constraints (as class)
     
-    constraint_1 = Optimization.TemperatureConstraint(11.5 , 129) # Placeholder
-    constraint_2 = Optimization.PumpsConstraint(4,1) # Placeholder
+    constraint_1 = TemperatureConstraint(11.5 , 129) # Placeholder
+    constraint_2 = PumpsConstraint(4,1) # Placeholder
     constraints = [constraint_1, constraint_2]
 
     # define OF (as class)
-    objective_function = Optimization.CostObjectiveFunction(1000000000000000) # Placeholder
+    objective_function = CostObjectiveFunction(1000000000000000) # Placeholder
 
     # initialize solver ( brute force -> OF and constraints, topology)
-    solver = Optimization.BruteForceSolver()
+    solver = BruteForceSolver()
     solver.BuildProblem(objective_function, constraints, topology)
     # create while optimization loop. run flow with no vtk output
         
