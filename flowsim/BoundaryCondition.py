@@ -1,14 +1,16 @@
 import util.NumberToPflotran as ntp
+from Region import Region
+from Position import Position
 class BoundaryCondition:
     #give _grad as Position objects
-    def __init__(self, name="inflow", region=Region("west", Position(0,0,0), Position(0, 200, 30)), pressure_type = "HYDROSTATIC", temperature_type = "DIRICHLET", datum = Position(0,0,20), pressure = 101325, temperature = 10, pressure_grad = (-0.005,0,0), temperature_grad = (0,0,0)):
+    def __init__(self, name="inflow", region=Region("west", Position(0,0,0), Position(0, 200, 30)), pressure_type = "HYDROSTATIC", temperature_type = "DIRICHLET", datum = Position(0,0,20), pressure = 101325, temperature = 10, pressure_grad = Position(-0.005,0,0), temperature_grad = (0,0,0)):
         self.pflotran_string = f"""
         FLOW_CONDITION {name}_flow_cond
             TYPE
                 {"PRESSURE "+pressure_type if pressure_type != "" else ""}
                 {"TEMPERATURE "+temperature_type if temperature_type != "" else ""}
             /
-            {"DATUM "datum.to_pflotran() if datum != False else ""}
+            {"DATUM "+datum.to_pflotran() if datum != False else ""}
             GRADIENT
                 {"PRESSURE "+pressure_grad.to_pflotran() if pressure_grad != (0,0,0) else ""}
                 {"TEMPERATURE "+temperature_grad.to_pflotran() if temperature_grad != (0,0,0) else ""}
@@ -26,7 +28,9 @@ class BoundaryCondition:
         """
     def to_pflotran(self):
         return self.pflotran_string
-    def default_BCs(self):
+
+    @staticmethod
+    def default_BCs():
         l = list()
         l.append(BoundaryCondition())
         l.append(BoundaryCondition(name="outflow", region=Region("east", Position(600,0,0), Position(600,200,30))))

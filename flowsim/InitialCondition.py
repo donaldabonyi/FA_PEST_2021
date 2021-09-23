@@ -15,7 +15,7 @@ class InitialCondition:
                 {"PRESSURE "+pressure_type if pressure_type != "" else ""}
                 {"TEMPERATURE "+temperature_type if temperature_type != "" else ""}
             /
-            {"DATUM "datum.to_pflotran() if datum != False else ""}
+            {"DATUM "+datum.to_pflotran() if datum != False else ""}
             GRADIENT
                 {"PRESSURE "+pressure_grad.to_pflotran() if pressure_grad != (0,0,0) else ""}
                 {"TEMPERATURE "+temperature_grad.to_pflotran() if temperature_grad != (0,0,0) else ""}

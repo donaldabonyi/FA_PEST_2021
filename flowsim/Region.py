@@ -6,10 +6,10 @@ class Region:
         
     def to_pflotran(self):
         return f"""
-        REGION {self.name}
-            COORDINATES\n" \
-                {self.positionStart.to_pflotran()}
-                {self.positionEnd.to_pflotran()}
-            /
-        END
+REGION {self.name}
+    COORDINATES
+        {self.positionStart.to_pflotran()}
+        {self.positionEnd.to_pflotran()}
+    /
+END
         """
