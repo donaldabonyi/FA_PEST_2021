@@ -14,6 +14,7 @@ def interpolation_main():
     y_coord_pp = pilot_points.loc[:, "y_coord"]
     permeability_pp = pilot_points.loc[:, "permeability"]
 
+    print(x_coord_pp)
     # get grid information
     x_grid, y_grid = read_grid()
 
