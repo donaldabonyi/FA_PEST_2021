@@ -1,0 +1,587 @@
+#Description: 3D box model for PEST permeability calibration
+
+#===================== flow mode ==============================
+
+SIMULATION
+  SIMULATION_TYPE SUBSURFACE
+  PROCESS_MODELS
+    SUBSURFACE_FLOW flow
+      MODE RICHARDS
+    /
+  /
+END
+
+SUBSURFACE
+
+#=================== solver options ===========================
+
+NUMERICAL_METHODS FLOW 
+  NEWTON_SOLVER 
+    ANALYTICAL_JACOBIAN 
+    ITOL_UPDATE 1.d0 
+    RTOL 1.d-20 
+  / 
+  LINEAR_SOLVER 
+    SOLVER ITERATIVE 
+  / 
+END
+
+#===================== Discretization =========================
+
+# insert one of the three grid options: 
+# ./test_model/test_ascii_implicit.ugi 
+# ./test_model/test_binary_implicit.h5 
+# ./test_model/test_explicit.uge 
+
+GRID
+# for explicit
+#TYPE UNSTRUCTURED_EXPLICIT ./test_model/test_ascii_implicit.uge
+#UPWIND_FRACTION_METHOD CELL_VOLUME
+
+# for implicit
+TYPE UNSTRUCTURED ./test_model/test_ascii_implicit.ugi
+MAX_CELLS_SHARING_A_VERTEX 50
+END
+
+#===================== fluid properties =======================
+FLUID_PROPERTY
+  DIFFUSION_COEFFICIENT 1.d-9
+/
+
+#=========================== datasets =========================================
+
+DATASET perm
+  HDF5_DATASET_NAME Permeability
+  FILENAME permeability_values.h5
+END
+
+#==================== material properties =====================
+
+MATERIAL_PROPERTY gravel
+  ID 1
+  POROSITY 0.25d0
+  TORTUOSITY 0.5d0
+  ROCK_DENSITY 2.8E3
+  SPECIFIC_HEAT 1E3
+  THERMAL_CONDUCTIVITY_DRY 0.5
+  THERMAL_CONDUCTIVITY_WET 0.5
+  LONGITUDINAL_DISPERSIVITY 3.1536d0
+  PERMEABILITY
+    VERTICAL_ANISOTROPY_RATIO 0.1
+    DATASET perm
+  /
+  CHARACTERISTIC_CURVES cc1
+/
+
+#==================== characteristic curves ===================
+
+CHARACTERISTIC_CURVES cc1
+  SATURATION_FUNCTION VAN_GENUCHTEN
+    ALPHA  1.d-4
+    M 0.5d0
+    LIQUID_RESIDUAL_SATURATION 0.1d0
+  /
+  PERMEABILITY_FUNCTION MUALEM_VG_LIQ
+    M 0.5d0
+    LIQUID_RESIDUAL_SATURATION 0.1d0
+  /
+END
+
+#======================= output options =======================
+
+OUTPUT
+  SNAPSHOT_FILE
+    #PERIODIC TIME 30. d BETWEEN 0. d AND 30. d
+    PERIODIC TIME 0.001 d BETWEEN 0. d AND 30. d
+    #FORMAT TECPLOT BLOCK
+    FORMAT HDF5
+    PRINT_COLUMN_IDS
+    VARIABLES
+      LIQUID_PRESSURE
+      LIQUID_HEAD
+      PERMEABILITY
+    /
+  /
+  OBSERVATION_FILE
+    TIMES d 0.001
+    VARIABLES
+      PERMEABILITY
+    /
+  /
+END
+
+#=========================== times ============================================
+TIME
+  #FINAL_TIME 30.d0 d
+  FINAL_TIME 0.001d0 d
+  INITIAL_TIMESTEP_SIZE 0.001 d
+  MAXIMUM_TIMESTEP_SIZE 10d0 d
+/
+
+REFERENCE_PRESSURE 101325.
+
+#=========================== regions ==========================================
+
+REGION all
+FILE ./test_model/test_implicit_materials_and_regions.h5
+END
+
+REGION south
+FILE ./test_model/SouthBC.ss
+END
+
+REGION north
+FILE ./test_model/NorthBC.ss
+END
+
+#=========================== observation points ===============================
+REGION obs_1
+  COORDINATE 20 20 0
+/
+
+REGION obs_2
+  COORDINATE 40 20 0
+/
+
+REGION obs_3
+  COORDINATE 60 20 0
+/
+
+REGION obs_4
+  COORDINATE 80 20 0
+/
+
+REGION obs_5
+  COORDINATE 20 40 0
+/
+
+REGION obs_6
+  COORDINATE 40 40 0
+/
+
+REGION obs_7
+  COORDINATE 60 40 0
+/
+
+REGION obs_8
+  COORDINATE 80 40 0
+/
+
+REGION obs_9
+  COORDINATE 20 60 0
+/
+
+REGION obs_10
+  COORDINATE 40 60 0
+/
+
+REGION obs_11
+  COORDINATE 60 60 0
+/
+
+REGION obs_12
+  COORDINATE 80 60 0
+/
+
+REGION obs_13
+  COORDINATE 20 80 0
+/
+
+REGION obs_14
+  COORDINATE 40 80 0
+/
+
+REGION obs_15
+  COORDINATE 60 80 0
+/
+
+REGION obs_16
+  COORDINATE 80 80 0
+/
+
+OBSERVATION
+  REGION obs_1
+/
+
+OBSERVATION
+  REGION obs_2
+/
+
+OBSERVATION
+  REGION obs_3
+/
+
+OBSERVATION
+  REGION obs_4
+/
+
+OBSERVATION
+  REGION obs_5
+/
+
+OBSERVATION
+  REGION obs_6
+/
+
+OBSERVATION
+  REGION obs_7
+/
+
+OBSERVATION
+  REGION obs_8
+/
+
+OBSERVATION
+  REGION obs_9
+/
+
+OBSERVATION
+  REGION obs_10
+/
+
+OBSERVATION
+  REGION obs_11
+/
+
+OBSERVATION
+  REGION obs_12
+/
+
+OBSERVATION
+  REGION obs_13
+/
+
+OBSERVATION
+  REGION obs_14
+/
+
+OBSERVATION
+  REGION obs_15
+/
+
+OBSERVATION
+  REGION obs_16
+/
+
+SKIP
+REGION obs_17
+  COORDINATE 10 10 0
+/
+
+REGION obs_18
+  COORDINATE 30 10 0
+/
+
+REGION obs_19
+  COORDINATE 50 10 0
+/
+
+REGION obs_20
+  COORDINATE 70 10 0
+/
+
+REGION obs_21
+  COORDINATE 10 30 0
+/
+
+REGION obs_22
+  COORDINATE 30 30 0
+/
+
+REGION obs_23
+  COORDINATE 50 30 0
+/
+
+REGION obs_24
+  COORDINATE 70 30 0
+/
+
+REGION obs_25
+  COORDINATE 10 50 0
+/
+
+REGION obs_26
+  COORDINATE 30 50 0
+/
+
+REGION obs_27
+  COORDINATE 50 50 0
+/
+
+REGION obs_28
+  COORDINATE 70 50 0
+/
+
+REGION obs_29
+  COORDINATE 10 70 0
+/
+
+REGION obs_30
+  COORDINATE 30 70 0
+/
+
+REGION obs_31
+  COORDINATE 50 70 0
+/
+
+REGION obs_32
+  COORDINATE 70 70 0
+/
+
+REGION obs_33
+  COORDINATE 10 90 0
+/
+
+REGION obs_34
+  COORDINATE 30 90 0
+/
+
+REGION obs_35
+  COORDINATE 50 90 0
+/
+
+REGION obs_36
+  COORDINATE 70 90 0
+/
+
+REGION obs_37
+  COORDINATE 20 90 0
+/
+
+REGION obs_38
+  COORDINATE 40 90 0
+/
+
+REGION obs_39
+  COORDINATE 60 90 0
+/
+
+REGION obs_40
+  COORDINATE 80 90 0
+/
+
+REGION obs_41
+  COORDINATE 90 90 0
+/
+
+REGION obs_42
+  COORDINATE 90 10 0
+/
+
+REGION obs_43
+  COORDINATE 90 20 0
+/
+
+REGION obs_44
+  COORDINATE 90 30 0
+/
+
+REGION obs_45
+  COORDINATE 90 40 0
+/
+
+REGION obs_46
+  COORDINATE 90 50 0
+/
+
+REGION obs_47
+  COORDINATE 90 60 0
+/
+
+REGION obs_48
+  COORDINATE 90 70 0
+/
+
+REGION obs_49
+  COORDINATE 90 80 0
+/
+
+OBSERVATION
+  REGION obs_17
+/
+
+OBSERVATION
+  REGION obs_18
+/
+
+OBSERVATION
+  REGION obs_19
+/
+
+OBSERVATION
+  REGION obs_20
+/
+
+OBSERVATION
+  REGION obs_21
+/
+
+OBSERVATION
+  REGION obs_22
+/
+
+OBSERVATION
+  REGION obs_23
+/
+
+OBSERVATION
+  REGION obs_24
+/
+
+OBSERVATION
+  REGION obs_25
+/
+
+OBSERVATION
+  REGION obs_26
+/
+
+OBSERVATION
+  REGION obs_27
+/
+
+OBSERVATION
+  REGION obs_28
+/
+
+OBSERVATION
+  REGION obs_29
+/
+
+OBSERVATION
+  REGION obs_30
+/
+
+OBSERVATION
+  REGION obs_31
+/
+
+OBSERVATION
+  REGION obs_32
+/
+
+OBSERVATION
+  REGION obs_33
+/
+
+OBSERVATION
+  REGION obs_34
+/
+
+OBSERVATION
+  REGION obs_35
+/
+
+OBSERVATION
+  REGION obs_36
+/
+
+OBSERVATION
+  REGION obs_37
+/
+
+OBSERVATION
+  REGION obs_38
+/
+
+OBSERVATION
+  REGION obs_39
+/
+
+OBSERVATION
+  REGION obs_40
+/
+
+OBSERVATION
+  REGION obs_41
+/
+
+OBSERVATION
+  REGION obs_42
+/
+
+OBSERVATION
+  REGION obs_43
+/
+
+OBSERVATION
+  REGION obs_44
+/
+
+OBSERVATION
+  REGION obs_45
+/
+
+OBSERVATION
+  REGION obs_46
+/
+
+OBSERVATION
+  REGION obs_47
+/
+
+OBSERVATION
+  REGION obs_48
+/
+
+OBSERVATION
+  REGION obs_49
+/
+NOSKIP
+
+#=========================== flow conditions ==================================
+
+FLOW_CONDITION initial
+  TYPE
+    PRESSURE HYDROSTATIC
+  /
+  DATUM 0.d0 0.d0 10.d0
+  GRADIENT
+    PRESSURE -0.002 0. 0.
+  /
+  PRESSURE 101325.d0
+END
+
+FLOW_CONDITION inflow_series
+  TYPE
+    PRESSURE HYDROSTATIC
+  /
+  DATUM FILE ./test_model/bc_inflow.txt
+  PRESSURE 101325.d0
+END
+
+FLOW_CONDITION outflow_series
+  TYPE
+    PRESSURE HYDROSTATIC
+  /
+  DATUM FILE ./test_model/bc_outflow.txt
+  PRESSURE 101325.d0
+END
+
+#=========================== condition couplers ===============================
+
+# initial condition
+INITIAL_CONDITION all
+  FLOW_CONDITION initial
+  REGION all
+END
+
+BOUNDARY_CONDITION inflow
+  FLOW_CONDITION inflow_series
+  REGION south
+END
+
+BOUNDARY_CONDITION outflow
+  FLOW_CONDITION outflow_series
+  REGION north
+END
+
+#=========================== stratigraphy couplers ============================
+STRATA
+  REGION all
+  MATERIAL gravel
+END
+
+HDF5_READ_GROUP_SIZE 1
+END_SUBSURFACE
+
