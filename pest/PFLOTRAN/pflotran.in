@@ -52,7 +52,7 @@ FLUID_PROPERTY
 
 DATASET perm
   HDF5_DATASET_NAME Permeability
-  FILENAME permeability.h5
+  FILENAME permeability_values.h5
 END
 
 #==================== material properties =====================
