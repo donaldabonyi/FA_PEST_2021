@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import csv
 import h5py
+from io import StringIO
 
 PFLOTRAN_DIR = '../PFLOTRAN/'
 
@@ -58,21 +59,22 @@ def interpolation_main():
     interpolated_points = read_output_file(filename)
     debug_print(interpolated_points)
 
+# read pilot points from .dat file
 def read_pilot_points():
-    if False:
-        # read pilot points from .dat file
-        if not (os.path.isfile(DATA_PERMPP_DAT) or os.path.isfile(DATA_PERMPP_DAT)):
-            print("It appears you do not have at least some of the data files. Please download them from Nextcloud.")
-            quit(1)
+    
+    if not (os.path.isfile(DATA_PERMPP_DAT) or os.path.isfile(DATA_PERMPP_DAT)):
+        print("It appears you do not have at least some of the data files. Please download them from Nextcloud.")
+        quit(1)
+        
+    with open(DATA_PERMPP_DAT) as dat_file, StringIO("") as csv_buffer:
+        csv_writer = csv.writer(csv_buffer)
 
-        with open(DATA_PERMPP_DAT) as dat_file, open(DATA_PERMPP_CSV, 'w') as csv_file:
-            csv_writer = csv.writer(csv_file)
+        for line in dat_file:
+            row = [field.strip() for field in line.split()]
+            csv_writer.writerow(row)
+        csv_buffer.seek(0)
 
-            for line in dat_file:
-                row = [field.strip() for field in line.split()]
-                csv_writer.writerow(row)
-
-    data = pd.read_csv(DATA_PERMPP_CSV, names=["ID", "x_coord", "y_coord", "n", "permeability"])
+        data = pd.read_csv(csv_buffer, names=["ID", "x_coord", "y_coord", "n", "permeability"])
     return data
 
 
