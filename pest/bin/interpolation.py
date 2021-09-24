@@ -11,7 +11,7 @@ def interpolation_main():
 
     # save data from pilot points in extra lists for the interpolation
     x_coord_pp = pilot_points.loc[:, "x_coord"]
-    y_coord_pp = pilot_points.loc[:, "x_coord"]
+    y_coord_pp = pilot_points.loc[:, "y_coord"]
     permeability_pp = pilot_points.loc[:, "permeability"]
 
     # get grid information
@@ -76,3 +76,6 @@ def read_grid():
         list_data_XC = [key for key in dataset['XC']]
         list_data_YC = [key for key in dataset['YC']]
     return list_data_XC, list_data_YC
+
+if __name__ == '__main__':
+    interpolation_main()
