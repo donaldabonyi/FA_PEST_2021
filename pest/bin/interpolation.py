@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import csv
 import h5py
+from io import StringIO
 
 DEBUG = False
 
@@ -51,14 +52,16 @@ def interpolation_main():
 
 def read_pilot_points():
     # read pilot points from .dat file
-    with open('../Data/permpp.dat') as dat_file, open('../Data/permpp.csv', 'w') as csv_file:
-        csv_writer = csv.writer(csv_file)
+    with open('../Data/permpp.dat') as dat_file, StringIO("") as csv_buffer:
+        csv_writer = csv.writer(csv_buffer)
 
         for line in dat_file:
             row = [field.strip() for field in line.split()]
             csv_writer.writerow(row)
+        csv_buffer.seek(0)
 
-    data = pd.read_csv('../Data/permpp.csv', names=["ID", "x_coord", "y_coord", "n", "permeability"])
+        data = pd.read_csv(csv_buffer, names=["ID", "x_coord", "y_coord", "n", "permeability"])
+    print(data)
     return data
 
 
