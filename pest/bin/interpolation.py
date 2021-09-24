@@ -32,23 +32,20 @@ def interpolation_main():
     x_coord_pp = pilot_points.loc[:, "x_coord"]
     y_coord_pp = pilot_points.loc[:, "y_coord"]
     permeability_pp = pilot_points.loc[:, "permeability"]
-    debug_print('log permeability_pp: \n', np.log(permeability_pp))
+    debug_print('log permeability_pp: \n', np.exp(permeability_pp))
 
     # log transform the interpolated values
-    permeability_pp = np.log10(permeability_pp)
     debug_print(x_coord_pp)
 
     # get grid information
     x_grid, y_grid = read_grid()
 
     # call the interpolation Rbf
-    rbf_function = interpolate.Rbf(x_coord_pp, y_coord_pp, permeability_pp, function='thin_plate')
+    rbf_function = interpolate.Rbf(x_coord_pp, y_coord_pp, permeability_pp, function='linear')
     interpolated_permeability = rbf_function(x_grid, y_grid)
-    debug_print('transformed interpolated permeability: \n', interpolated_permeability)
 
-    # inv-log transform the interpolated values
-    interpolated_permeability = np.exp(interpolated_permeability)
-    debug_print('interpolated permeability: \n', interpolated_permeability)
+    print("min value: " + str(np.min(interpolated_permeability)) + ", max value: " + str(np.max(interpolated_permeability)))
+    print('interpolated permeability: \n', interpolated_permeability)
 
     # save grid as np array
     cells_grid = np.array([x_grid, y_grid])
@@ -62,17 +59,18 @@ def interpolation_main():
     debug_print(interpolated_points)
 
 def read_pilot_points():
-    # read pilot points from .dat file
-    if not (os.path.isfile(DATA_PERMPP_DAT) or os.path.isfile(DATA_PERMPP_DAT)):
-        print("It appears you do not have at least some of the data files. Please download them from Nextcloud.")
-        quit(1)
+    if False:
+        # read pilot points from .dat file
+        if not (os.path.isfile(DATA_PERMPP_DAT) or os.path.isfile(DATA_PERMPP_DAT)):
+            print("It appears you do not have at least some of the data files. Please download them from Nextcloud.")
+            quit(1)
 
-    with open(DATA_PERMPP_DAT) as dat_file, open(DATA_PERMPP_CSV, 'w') as csv_file:
-        csv_writer = csv.writer(csv_file)
+        with open(DATA_PERMPP_DAT) as dat_file, open(DATA_PERMPP_CSV, 'w') as csv_file:
+            csv_writer = csv.writer(csv_file)
 
-        for line in dat_file:
-            row = [field.strip() for field in line.split()]
-            csv_writer.writerow(row)
+            for line in dat_file:
+                row = [field.strip() for field in line.split()]
+                csv_writer.writerow(row)
 
     data = pd.read_csv(DATA_PERMPP_CSV, names=["ID", "x_coord", "y_coord", "n", "permeability"])
     return data
