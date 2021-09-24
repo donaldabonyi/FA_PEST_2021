@@ -12,41 +12,19 @@ def interpolation_main():
 
     # save data from pilot points in extra lists for the interpolation
     x_coord_pp = pilot_points.loc[:, "x_coord"]
-    x_coord_arr = np.zeros((x_coord_pp.shape[0], 1))
-    for i in range(x_coord_pp.shape[0]):
-        x_coord_arr[i,0] = x_coord_pp[i]
-    # x_coord_arr = x_coord_arr.transpose()    
-    print('x_coord_arr: \n', x_coord_arr)
-
     y_coord_pp = pilot_points.loc[:, "y_coord"]
-    y_coord_arr = np.zeros((y_coord_pp.shape[0], 1))
-    for i in range(y_coord_pp.shape[0]):
-        y_coord_arr[i,0] = y_coord_pp[i]
-    # x_coord_arr = x_coord_arr.transpose()    
-    print('y_coord_arr: \n', y_coord_arr)
-
     permeability_pp = pilot_points.loc[:, "permeability"]
-    permeability_arr = np.zeros((permeability_pp.shape[0], 1))
-    for i in range(permeability_pp.shape[0]):
-        permeability_arr[i,0] = permeability_pp[i]
-    # x_coord_arr = x_coord_arr.transpose()    
-    print('permeability_arr: \n', permeability_arr)
-    print('log permeability_arr: \n', np.log(permeability_arr))
-
-    # print('x_coordintes:\n ', x_coord_pp)
-    # print('x_coordintes:\n ', y_coord_pp)
-    # print('permeability values at PPoints: \n', permeability_pp)
-    # print(type(permeability_pp))
+    print('log permeability_pp: \n', np.log(permeability_pp))
 
     # log transform the interpolated values
-    permeability_arr = np.log(permeability_arr)
-
+    permeability_pp = np.log(permeability_pp)
     print(x_coord_pp)
+
     # get grid information
     x_grid, y_grid = read_grid()
 
     # call the interpolation Rbf
-    rbf_function = interpolate.Rbf(x_coord_arr, y_coord_arr, permeability_arr, function='thin_plate')
+    rbf_function = interpolate.Rbf(x_coord_pp, y_coord_pp, permeability_pp, function='thin_plate')
     interpolated_permeability = rbf_function(x_grid, y_grid)
     print('transformed interpolated permeability: \n', interpolated_permeability)
 
