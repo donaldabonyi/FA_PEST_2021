@@ -23,7 +23,7 @@ def interpolation_main():
     debug_print('log permeability_pp: \n', np.log(permeability_pp))
 
     # log transform the interpolated values
-    permeability_pp = np.log(permeability_pp)
+    permeability_pp = np.log10(permeability_pp)
     debug_print(x_coord_pp)
 
     # get grid information
@@ -48,9 +48,6 @@ def interpolation_main():
     filename = "../PFLOTRAN/permeability_values.h5"
     interpolated_points = read_output_file(filename)
     debug_print(interpolated_points)
-
-
-
 
 def read_pilot_points():
     # read pilot points from .dat file
@@ -87,12 +84,8 @@ def read_grid():
     filename = '../PFLOTRAN/pflotran_boxmodel.h5'
 
     with h5py.File(filename, "r") as file:
-        
-        debug = True
-        if debug:
-            # List all groups
-            a_group_key = list(file.keys())[0]
-            debug_print('\nGroup keys in input h5 file: \n', a_group_key )
+
+        debug_print('\nGroup keys in input h5 file: \n', list(file.keys())[0])
 
         dataset = file['Domain']
 
@@ -103,12 +96,8 @@ def read_grid():
 
 def read_output_file(filename):
     with h5py.File(filename, "r") as file:
-        
-        debug = True
-        if debug:
-            # List all groups [debugging]
-            a_group_key = list(file.keys())
-            debug_print('\nGroup keys in created h5 file: \n', a_group_key )
+
+        debug_print('\nGroup keys in created h5 file: \n', list(file.keys()))
 
         # dataset = file['Permeability']
 
