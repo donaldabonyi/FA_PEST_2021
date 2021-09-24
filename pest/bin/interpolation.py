@@ -46,8 +46,8 @@ def write_permeability_file(permeability_array, cells_grid):
     # writes the permeability input file for PEST
     iarray = np.arange(1, cells_grid.shape[0] + 1, 1)
 
-    print(cells_grid.shape[0])
-    print(iarray)
+    #print(cells_grid.shape[0])
+    #print(iarray)
 
     file = h5py.File("../PFLOTRAN/permeability_values.h5", "w") #open/create the hdf5 file
     cell_ids = file.create_dataset("cell ids", (iarray.shape[0],))
@@ -72,3 +72,5 @@ def read_grid():
         list_data_XC = [key for key in dataset['XC']]
         list_data_YC = [key for key in dataset['YC']]
     return list_data_XC, list_data_YC
+
+interpolation_main()
