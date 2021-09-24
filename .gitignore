@@ -1,0 +1,6 @@
+pest/PFLOTRAN/test_model/
+pest/bin/__pycache__/
+
+# interim results
+pest/Data/permpp.csv
+pest/PFLOTRAN/permeability_values.h5
