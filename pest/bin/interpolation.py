@@ -54,8 +54,8 @@ def write_permeability_file(permeability_array, cells_grid):
     print(iarray)
 
     file = h5py.File("../PFLOTRAN/permeability_values.h5", "w") #open/create the hdf5 file
-    cell_ids = file.create_dataset("cell ids", (iarray.shape[0],))
-    perm_vals = file.create_dataset("permeability_values", (permeability_array.shape[0],))
+    cell_ids = file.create_dataset("Cell Ids", (iarray.shape[0],))
+    perm_vals = file.create_dataset("Permeability", (permeability_array.shape[0],))
     for i in range(0,iarray.shape[0]):
         cell_ids[i] = iarray[i]
         perm_vals[i] = permeability_array[i]
