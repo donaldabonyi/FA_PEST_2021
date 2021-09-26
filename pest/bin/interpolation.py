@@ -9,13 +9,12 @@ from io import StringIO
 
 PFLOTRAN_DIR = '../PFLOTRAN/'
 
-PFLOTRAN_BOXMODEL = PFLOTRAN_DIR + 'pflotran_boxmodel.h5'
-PERMEABILITY_VALUES = PFLOTRAN_DIR + 'permeability_values.h5'
+PFLOTRAN_BOXMODEL_FILE = PFLOTRAN_DIR + 'pflotran_boxmodel.h5'
+PERMEABILITY_VALUES_FILE = PFLOTRAN_DIR + 'permeability_values.h5'
 
 DATA_DIR = '../Data/'
 
-DATA_PERMPP_CSV = DATA_DIR + 'permpp.csv'
-DATA_PERMPP_DAT = DATA_DIR + 'permpp.dat'
+DATA_PERMPP_DAT_FILE = DATA_DIR + 'permpp.dat'
 
 DEBUG = False
 
@@ -55,18 +54,17 @@ def interpolation_main():
     write_permeability_file(interpolated_permeability, cells_grid)
 
     # Print the created h5 file
-    filename = PERMEABILITY_VALUES
-    interpolated_points = read_output_file(filename)
+    interpolated_points = read_output_file(PERMEABILITY_VALUES_FILE)
     debug_print(interpolated_points)
 
 # read pilot points from .dat file
 def read_pilot_points():
     
-    if not (os.path.isfile(DATA_PERMPP_DAT) or os.path.isfile(DATA_PERMPP_DAT)):
+    if not (os.path.isfile(DATA_PERMPP_DAT_FILE)):
         print("It appears you do not have at least some of the data files. Please download them from Nextcloud.")
         quit(1)
         
-    with open(DATA_PERMPP_DAT) as dat_file, StringIO("") as csv_buffer:
+    with open(DATA_PERMPP_DAT_FILE) as dat_file, StringIO("") as csv_buffer:
         csv_writer = csv.writer(csv_buffer)
 
         for line in dat_file:
@@ -85,7 +83,7 @@ def write_permeability_file(perm_array, cells_grid):
 
     assert number_cells == cells_grid.shape[1]
 
-    file = h5py.File("../PFLOTRAN/permeability_values.h5", "w")
+    file = h5py.File(PERMEABILITY_VALUES_FILE, "w")
     # NOTE there may be PFLOTRAN problems as the ids are integers now
     cell_ids = file.create_dataset("Cell Ids", data=ids)
     perm_vals = file.create_dataset("Permeability", data=perm_array)
@@ -97,7 +95,7 @@ def write_permeability_file(perm_array, cells_grid):
 
 def read_grid():
     # reads grid file in .h5 format
-    with h5py.File(PFLOTRAN_BOXMODEL, "r") as file:
+    with h5py.File(PFLOTRAN_BOXMODEL_FILE, "r") as file:
         debug_print('\nGroup keys in input h5 file: \n', list(file.keys())[0])
 
         dataset = file['Domain']
