@@ -1,0 +1,113 @@
+
+Fri Sep 24 2021 14:01: processing information contained in TSPROC input file tsproc.tsp....
+
+ Processing SETTINGS block....
+    context model_post
+    DATE_FORMAT dd/mm/yyyy
+    Processing of SETTINGS block complete.
+
+ Processing GET_MUL_SERIES_SSF block....
+    context all
+    FILE ../PFLOTRAN/pflotran_output.ssf
+    SITE obs_1
+    NEW_SERIES_NAME temp_model_site1
+    SITE obs_2
+    NEW_SERIES_NAME temp_model_site2
+    SITE obs_3
+    NEW_SERIES_NAME temp_model_site3
+    SITE obs_4
+    NEW_SERIES_NAME temp_model_site4
+    SITE obs_5
+    NEW_SERIES_NAME temp_model_site5
+    SITE obs_6
+    NEW_SERIES_NAME temp_model_site6
+    SITE obs_7
+    NEW_SERIES_NAME temp_model_site7
+    SITE obs_8
+    NEW_SERIES_NAME temp_model_site8
+    SITE obs_9
+    NEW_SERIES_NAME temp_model_site9
+    SITE obs_10
+    NEW_SERIES_NAME temp_model_site10
+    SITE obs_11
+    NEW_SERIES_NAME temp_model_site11
+    SITE obs_12
+    NEW_SERIES_NAME temp_model_site12
+    SITE obs_13
+    NEW_SERIES_NAME temp_model_site13
+    SITE obs_14
+    NEW_SERIES_NAME temp_model_site14
+    SITE obs_15
+    NEW_SERIES_NAME temp_model_site15
+    SITE obs_16
+    NEW_SERIES_NAME temp_model_site16
+    SITE obs_17
+    NEW_SERIES_NAME temp_model_site17
+    SITE obs_18
+    NEW_SERIES_NAME temp_model_site18
+    SITE obs_19
+    NEW_SERIES_NAME temp_model_site19
+    SITE obs_20
+    NEW_SERIES_NAME temp_model_site20
+    SITE obs_21
+    NEW_SERIES_NAME temp_model_site21
+    SITE obs_22
+    NEW_SERIES_NAME temp_model_site22
+    SITE obs_23
+    NEW_SERIES_NAME temp_model_site23
+    SITE obs_24
+    NEW_SERIES_NAME temp_model_site24
+    SITE obs_25
+    NEW_SERIES_NAME temp_model_site25
+    SITE obs_26
+    NEW_SERIES_NAME temp_model_site26
+    SITE obs_27
+    NEW_SERIES_NAME temp_model_site27
+    SITE obs_28
+    NEW_SERIES_NAME temp_model_site28
+    SITE obs_29
+    NEW_SERIES_NAME temp_model_site29
+    SITE obs_30
+    NEW_SERIES_NAME temp_model_site30
+    SITE obs_31
+    NEW_SERIES_NAME temp_model_site31
+    SITE obs_32
+    NEW_SERIES_NAME temp_model_site32
+    SITE obs_33
+    NEW_SERIES_NAME temp_model_site33
+    SITE obs_34
+    NEW_SERIES_NAME temp_model_site34
+    SITE obs_35
+    NEW_SERIES_NAME temp_model_site35
+    SITE obs_36
+    NEW_SERIES_NAME temp_model_site36
+    SITE obs_37
+    NEW_SERIES_NAME temp_model_site37
+    SITE obs_38
+    NEW_SERIES_NAME temp_model_site38
+    SITE obs_39
+    NEW_SERIES_NAME temp_model_site39
+    SITE obs_40
+    NEW_SERIES_NAME temp_model_site40
+    SITE obs_41
+    NEW_SERIES_NAME temp_model_site41
+    SITE obs_42
+    NEW_SERIES_NAME temp_model_site42
+    SITE obs_43
+    NEW_SERIES_NAME temp_model_site43
+    SITE obs_44
+    NEW_SERIES_NAME temp_model_site44
+    SITE obs_45
+    NEW_SERIES_NAME temp_model_site45
+    SITE obs_46
+    NEW_SERIES_NAME temp_model_site46
+    SITE obs_47
+    NEW_SERIES_NAME temp_model_site47
+    SITE obs_48
+    NEW_SERIES_NAME temp_model_site48
+    SITE obs_49
+    NEW_SERIES_NAME temp_model_site49
+    Reading site sample file ../PFLOTRAN/pflotran_output.ssf....
+
+ Error: cannot open file ../PFLOTRAN/pflotran_output.ssf cited in 
+   GET_MUL_SERIES_SSF block.

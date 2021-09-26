@@ -5,3 +5,4 @@ pest/bin/__pycache__/
 pest/Data/permpp.csv
 pest/PFLOTRAN/permeability_values.h5
 pest/bin/test_log.txt
+pest/bin/log.pflotran
