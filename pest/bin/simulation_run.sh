@@ -1,5 +1,5 @@
 #!/bin/bash
 cd ../PEST
-pestpp pestfile_regul.pst
+pestpp-glm pestfile_regul.pst
 
 
